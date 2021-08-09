@@ -1,32 +1,33 @@
 <template>
 <div>
-  <main class="main-content main-content-bg mt-0">
+
+  <main class="main-content  mt-0">
     <section>
       <div class="page-header min-vh-75">
         <div class="container">
           <div class="row">
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
               <div class="card card-plain mt-8">
-                <div class="card-header pb-0 text-start">
+                <div class="card-header pb-0 text-left bg-transparent">
                   <h3 class="font-weight-bolder text-info text-gradient">Welcome back</h3>
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <form role="form" class="text-start">
+                  <form @submit.prevent="handleLogin">
                     <label>Email</label>
                     <div class="mb-3">
-                      <input type="email" class="form-control" placeholder="Email" aria-label="Email" v-model="email">
+                      <input type="email" name="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon" v-model="email">
                     </div>
                     <label>Password</label>
                     <div class="mb-3">
-                      <input type="password" class="form-control" placeholder="Password" aria-label="Password" v-model="password">
+                      <input type="password" v-model="password" name="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
                     </div>
                     <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="rememberMe" checked="" v-model="remmemberMe">
-                      <label class="form-check-label" for="rememberMe">Remember me</label>
+                      <input class="form-check-input" type="checkbox" id="rememberMe" checked="" name="rememberMe" v-model="remmemberMe">
+                      <label class="form-check-label" for="rememberMe" re>Remember me</label>
                     </div>
                     <div class="text-center">
-                      <button type="button" class="btn bg-gradient-info w-100 mt-4 mb-0">Sign in</button>
+                      <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Sign in</button>
                     </div>
                   </form>
                 </div>
@@ -40,7 +41,7 @@
             </div>
             <div class="col-md-6">
               <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
-                <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style="background-image:url('http://localhost/inertia/public/assets/img/curved-images/curved10.jpg')"></div>
+                <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style="background-image:url('http://localhost/inertia/public/assets/img/curved-images/curved6.jpg')"></div>
               </div>
             </div>
           </div>
@@ -48,7 +49,7 @@
       </div>
     </section>
   </main>
-  
+
   <footer class="footer py-5">
     <div class="container">
       <div class="row">
@@ -93,13 +94,14 @@
       <div class="row">
         <div class="col-8 mx-auto text-center mt-1">
           <p class="mb-0 text-secondary">
-            Copyright © Soft by Creative Tim.
+            Copyright ©2021  Imrania.
           </p>
         </div>
       </div>
     </div>
   </footer>
-  </div>
+
+</div>
 </template>
 <script>
 export default{
@@ -111,6 +113,34 @@ export default{
             remmemberMe:null
 
     }
+  },
+
+  methods:{
+
+        handleLogin(){
+
+              let loginData = {
+                email: this.email,
+                password: this.password,
+                remember: this.remmemberMe
+              }
+              // console.log(loginData);
+              this.$inertia.visit('http://127.0.0.1:8000/login', {
+                method:"POST",
+                data: {
+                email: this.email,
+                password: this.password,
+                },
+                onSuccess: page => {},
+                onError: errors => {},
+                onFinish: visit => {},
+              });
+              
+
+        }
+
   }
+
+
 };
 </script>
