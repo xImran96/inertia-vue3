@@ -17,6 +17,11 @@ Route::get('/', function () {
     return Inertia::render('Auth/Login');
 });
 
+
+
 Auth::routes();
 
+Route::group(['middleware'=>['auth']], function(){
+
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+});

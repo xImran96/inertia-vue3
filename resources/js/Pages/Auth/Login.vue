@@ -125,7 +125,7 @@ export default{
                 remember: this.remmemberMe
               }
               // console.log(loginData);
-              this.$inertia.visit('http://127.0.0.1:8000/login', {
+              this.$inertia.visit(`http://127.0.0.1:8000/login`, {
                 method:"POST",
                 data: {
                 email: this.email,
